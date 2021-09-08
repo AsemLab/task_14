@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import jo.secondstep.entities.*;
 import jo.secondstep.repositories.JobsRepository;
 
 @Controller
@@ -39,9 +36,10 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/alljobs")
-	public @ResponseBody Iterable<Job> getAllJobs() {
+	public String getAllJobs(ModelMap map) {
+		map.addAttribute("jobs", jobsRepository.findAll());
 
-		return jobsRepository.findAll();
+		return "alljobs";
 
 	}
 }
